@@ -19,7 +19,7 @@ BATCH_SIZE_NODES = 500
 BATCH_SIZE_EDGES = 100
 os.environ["NEO4J_URI"] = "bolt://localhost:7687"
 os.environ["NEO4J_USERNAME"] = "neo4j"
-os.environ["NEO4J_PASSWORD"] = "neo4j"
+os.environ["NEO4J_PASSWORD"] = "neo4j_password"
 
 # milvus
 os.environ["MILVUS_URI"] = "http://localhost:19530"
@@ -31,7 +31,7 @@ os.environ["MILVUS_DB_NAME"] = "lightrag"
 rag = LightRAG(
     working_dir=WORKING_DIR,
     llm_model_func=ollama_model_complete,
-    llm_model_name="qwen2.5:14b",
+    llm_model_name="qwen2",
     llm_model_max_async=4,
     llm_model_max_token_size=32768,
     llm_model_kwargs={"host": "http://127.0.0.1:11434", "options": {"num_ctx": 32768}},
@@ -52,5 +52,5 @@ with open(file, "r") as f:
     rag.insert(f.read())
 
 print(
-    rag.query("What are the top themes in this story?", param=QueryParam(mode="hybrid"))
+    rag.query("What are the main arguments in this story?", param=QueryParam(mode="hybrid"))
 )
